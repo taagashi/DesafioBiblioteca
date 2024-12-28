@@ -4,7 +4,7 @@ public class Autor {
     private final Long id;
     private final String nome;
     private final LocalDate dataNascimento;
-
+    
     public Autor(Long id, String nome, LocalDate dataNascimento)
     {
         this.id = id;
@@ -18,5 +18,5 @@ public class Autor {
         System.out.println("Nome: " + nome);
         System.out.println("Data de nascimento: " + dataNascimento);
     }
-    
+
 }
