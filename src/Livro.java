@@ -58,4 +58,9 @@ public class Livro {
     {
         return titulo;
     }
+
+    public boolean getDisponivel()
+    {
+        return disponivel;
+    }
 }
