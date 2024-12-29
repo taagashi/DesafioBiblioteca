@@ -14,8 +14,7 @@ public class Biblioteca {
     private final ArrayList<Livro> livrosEmprestados;
     private final Scanner scanner;
 
-    public Biblioteca()
-    {
+    public Biblioteca() {
         livros = new ArrayList<>();
         autores = new ArrayList<>();
         clientes = new ArrayList<>();
@@ -24,8 +23,7 @@ public class Biblioteca {
 
     }
 
-    public void adicionarLivro(long id, String titulo, LocalDate data) throws InputMismatchException, DateTimeException
-    {
+    public void adicionarLivro(long id, String titulo, LocalDate data) throws InputMismatchException, DateTimeException {
         System.out.print("Insira o id do autor: ");
         long idAutor = scanner.nextLong();
         scanner.nextLine();
@@ -50,8 +48,7 @@ public class Biblioteca {
         System.out.println(livro.getTitulo() + " adicionado com sucesso");
     }
 
-    public void adicionarCliente(long id, String nome, String email, String senha, LocalDate data)
-    {
+    public void adicionarCliente(long id, String nome, String email, String senha, LocalDate data) {
         try {
             clientes.add(new Cliente(id, nome, email, senha, data));
         } catch (IOException e) {
@@ -60,108 +57,115 @@ public class Biblioteca {
 
     }
 
-    public void exibirLivrosDisponiveis()
-    {
-        if(livros.isEmpty())
-        {
+    public void exibirLivrosDisponiveis() {
+        if (livros.isEmpty()) {
             System.out.println("Cadastre livros para realizar essa acao");
         }
 
-        for(Livro livro : livros)
-        {
-            if(livro.getDisponivel())
-            {
+        for (Livro livro : livros) {
+            if (livro.getDisponivel()) {
                 System.out.println();
                 livro.exibirLivro();
             }
         }
     }
 
-    public void exibirClientesCadastrados()
-    {
-        if(clientes.isEmpty())
-        {
+    public void exibirClientesCadastrados() {
+        if (clientes.isEmpty()) {
             System.out.println("Adicione clientes antes de realizar essa ação");
             return;
         }
 
-        for(Cliente cliente : clientes)
-        {
+        for (Cliente cliente : clientes) {
             System.out.println();
             cliente.exibirCliente();
         }
     }
 
-    public void exibirAutoresCadastrados()
-    {
-        if(autores.isEmpty())
-        {
+    public void exibirAutoresCadastrados() {
+        if (autores.isEmpty()) {
             System.out.println("Adicione autores para realizar essa ação");
             return;
         }
 
-        for(Autor autor : autores)
-        {
+        for (Autor autor : autores) {
             System.out.println();
             autor.exibirAutor();
         }
     }
 
-    public Cliente pesquisarCliente(String email, String senha)
-    {
-        if(clientes.isEmpty())
-        {
+    public Cliente pesquisarCliente(String email, String senha) {
+        if (clientes.isEmpty()) {
             System.out.println("Adicione clientes antes de realizar essa ação");
             return null;
         }
 
-        for(Cliente cliente : clientes)
-        {
-            if(cliente.logar(email, senha))
-            {
+        for (Cliente cliente : clientes) {
+            if (cliente.logar(email, senha)) {
                 return cliente;
             }
         }
         return null;
     }
 
-    public Cliente pesquisarCliente(long id) throws InputMismatchException
-    {
-        if(clientes.isEmpty())
-        {
+    public Cliente pesquisarCliente(long id) throws InputMismatchException {
+        if (clientes.isEmpty()) {
             System.out.println("Adicione clientes antes de realizar essa acao");
             return null;
         }
 
-        for(Cliente cliente : clientes)
-        {
-            if(cliente.getId() == id)
-            {
+        for (Cliente cliente : clientes) {
+            if (cliente.getId() == id) {
                 return cliente;
             }
         }
         return null;
     }
 
-    public void emprestarLivro(Cliente cliente, Livro livro)
-    {
-        cliente.emprestarLivro(livro);
+    public Livro pesquisarLivro(String titulo) {
+        if (livros.isEmpty()) {
+            System.out.println("Você precisa adicionar livros para poder procura-los");
+            return null;
+        }
+
+        for (Livro livro : livros) {
+            if ((livro.getTitulo().equals(titulo)) && (livro.getDisponivel())) {
+                return livro;
+            }
+        }
+        return null;
     }
 
-    public void devolverLivro(Cliente cliente, Livro livro)
-    {
+    public Livro pesquisarLivro(long id) {
+        if (livros.isEmpty()) {
+            System.out.println("Você precisa adicionar livros para poder procura-los");
+            return null;
+        }
+
+        for (Livro livro : livros) {
+            if ((livro.getId() == id) && (livro.getDisponivel())) {
+                return livro;
+            }
+        }
+        return null;
+    }
+
+    public void emprestarLivro(Cliente cliente, Livro livro) {
+        cliente.emprestarLivro(livro);
+
+
+    }
+
+    public void devolverLivro(Cliente cliente, Livro livro) {
         cliente.devolverLivro(livro);
     }
 
-    public void abrirRegistroDeEmprestimos()
-    {
-        try
-        {
+    public void abrirRegistroDeEmprestimos() {
+        try {
             Path registro = Cliente.abrirRegistroDeEmprestimos();
             String registros = Files.readString(registro);
 
-            if(registros.isEmpty())
-            {
+            if (registros.isEmpty()) {
                 System.out.println("Ainda nao existe registros disponiveis");
                 return;
             }
@@ -176,7 +180,28 @@ public class Biblioteca {
 
     public static void main(String[] args) {
         Biblioteca biblioteca = new Biblioteca();
+
+        biblioteca.adicionarCliente(1232313, "thaua", "thauaGabriel", "senha", LocalDate.of(2006, 2, 17));
+        biblioteca.adicionarCliente(13123, "Alefe", "alefekall13@gmail.com", "19091205", LocalDate.of(2010, 4, 12));
+        biblioteca.adicionarCliente(213123, "Micael", "jonatasMicael736@gmail.com", "12345micael", LocalDate.of(2008, 9, 16));
+
+        biblioteca.adicionarLivro(3123, "minecraft", LocalDate.of(1998, 12, 6));
+        biblioteca.adicionarLivro(123123, "Os caçadores de deuses", LocalDate.of(2008, 4, 9));
+        biblioteca.adicionarLivro(23123, "Coraline", LocalDate.of(2002, 12, 7));
+
+        biblioteca.exibirLivrosDisponiveis();
+        biblioteca.exibirAutoresCadastrados();
+        biblioteca.exibirClientesCadastrados();
+
+        Cliente thaua = biblioteca.pesquisarCliente("thauaGabriel", "senha");
+        Livro minecraft = biblioteca.pesquisarLivro("minecraft");
+
+        biblioteca.emprestarLivro(thaua, minecraft);
+
+        biblioteca.exibirLivrosDisponiveis();
+
         biblioteca.abrirRegistroDeEmprestimos();
+
 
     }
 }
