@@ -112,6 +112,10 @@ public class Cliente {
         return emprestimosLivros;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public static void main(String[] args) {
         Autor notch = new Autor(312331L, "notch", LocalDate.of(1999, 2, 19));
         Livro mine = new Livro(3123123L, "mine", notch, LocalDate.of(2000, 3, 12));
