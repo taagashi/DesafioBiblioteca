@@ -98,7 +98,7 @@ public class Cliente {
         }
     }
 
-    public Path abrirRegistroDeEmprestimos() throws IOException
+    public static Path abrirRegistroDeEmprestimos() throws IOException
     {
         String caminho = System.getProperty("user.home") + "/Desktop/emprestimosLivros.txt";
         Path emprestimosLivros = Path.of(caminho);

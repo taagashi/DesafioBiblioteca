@@ -1,10 +1,11 @@
 import java.time.DateTimeException;
 import java.util.ArrayList;
-
 import java.time.LocalDate;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Biblioteca {
     private final ArrayList<Livro> livros;
@@ -20,6 +21,7 @@ public class Biblioteca {
         clientes = new ArrayList<>();
         livrosEmprestados = new ArrayList<>();
         scanner = new Scanner(System.in);
+
     }
 
     public void adicionarLivro(long id, String titulo, LocalDate data) throws InputMismatchException, DateTimeException
@@ -60,6 +62,11 @@ public class Biblioteca {
 
     public void exibirLivrosDisponiveis()
     {
+        if(livros.isEmpty())
+        {
+            System.out.println("Cadastre livros para realizar essa acao");
+        }
+
         for(Livro livro : livros)
         {
             if(livro.getDisponivel())
@@ -67,6 +74,36 @@ public class Biblioteca {
                 System.out.println();
                 livro.exibirLivro();
             }
+        }
+    }
+
+    public void exibirClientesCadastrados()
+    {
+        if(clientes.isEmpty())
+        {
+            System.out.println("Adicione clientes antes de realizar essa ação");
+            return;
+        }
+
+        for(Cliente cliente : clientes)
+        {
+            System.out.println();
+            cliente.exibirCliente();
+        }
+    }
+
+    public void exibirAutoresCadastrados()
+    {
+        if(autores.isEmpty())
+        {
+            System.out.println("Adicione autores para realizar essa ação");
+            return;
+        }
+
+        for(Autor autor : autores)
+        {
+            System.out.println();
+            autor.exibirAutor();
         }
     }
 
@@ -88,7 +125,7 @@ public class Biblioteca {
         return null;
     }
 
-    public Cliente pesquisarCliente(long id)
+    public Cliente pesquisarCliente(long id) throws InputMismatchException
     {
         if(clientes.isEmpty())
         {
@@ -106,23 +143,40 @@ public class Biblioteca {
         return null;
     }
 
+    public void emprestarLivro(Cliente cliente, Livro livro)
+    {
+        cliente.emprestarLivro(livro);
+    }
+
+    public void devolverLivro(Cliente cliente, Livro livro)
+    {
+        cliente.devolverLivro(livro);
+    }
+
+    public void abrirRegistroDeEmprestimos()
+    {
+        try
+        {
+            Path registro = Cliente.abrirRegistroDeEmprestimos();
+            String registros = Files.readString(registro);
+
+            if(registros.isEmpty())
+            {
+                System.out.println("Ainda nao existe registros disponiveis");
+                return;
+            }
+
+            System.out.println(registros);
+
+        } catch (IOException e) {
+            System.out.println("Erro ao tentar abrir arquivo");
+        }
+
+    }
 
     public static void main(String[] args) {
         Biblioteca biblioteca = new Biblioteca();
+        biblioteca.abrirRegistroDeEmprestimos();
 
-        try
-        {
-            biblioteca.adicionarLivro(3123213, "minecraft", LocalDate.of(2000,2,17));
-            biblioteca.adicionarLivro(3123213, "MANOEL GOMES", LocalDate.of(2022,12,17));
-        } catch (InputMismatchException e) {
-            System.out.println("Voce precisa inserir dados validos");
-            return;
-        }catch (DateTimeException e)
-        {
-            System.out.println("Insira uma data valida");
-            return;
-        }
-
-        biblioteca.exibirLivrosDisponiveis();
     }
 }
