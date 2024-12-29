@@ -49,7 +49,9 @@ public class Cliente {
             return;
         }
 
+        System.out.println();
         System.out.println(nome + " acabou de emprestar livro");
+        System.out.println();
         livrosEmprestados.add(livro);
         String mensagem = nome + " de id " + id + " emprestou um livro de titulo " + livro.getTitulo() + " no horario de " + LocalDateTime.now() + "\n";
 
@@ -70,7 +72,9 @@ public class Cliente {
             return;
         }
 
+        System.out.println();
         System.out.println(nome + " acabou de devolver livro");
+        System.out.println();
         livrosEmprestados.remove(livro);
         String mensagem = nome + " de id " + id + " devolveu um livro de titulo " + livro.getTitulo() + " no horario de " + LocalDateTime.now() + "\n";
 
@@ -87,14 +91,19 @@ public class Cliente {
     {
         if(livrosEmprestados.isEmpty())
         {
+            System.out.println();
             System.out.println("Adicione pelo menos 1 livro para poder ver seus livros empretados");
+            System.out.println();
             return;
         }
 
+        System.out.println();
         System.out.println("Lista de livros emprestados de " + nome);
         for(Livro livro : livrosEmprestados)
         {
+            System.out.println();
             System.out.println(livro.getTitulo());
+            System.out.println();
         }
     }
 

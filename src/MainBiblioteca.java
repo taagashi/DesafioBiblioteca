@@ -137,6 +137,7 @@ public class MainBiblioteca {
 
         System.out.println();
         System.out.println(nome + " sua conta foi criada com sucesso");
+        System.out.println();
     }
 
     public Cliente logar()
@@ -186,7 +187,9 @@ public class MainBiblioteca {
             return;
         }
 
+        System.out.println();
         System.out.println(cliente.getNome() + " cadastrou livro " + titulo + " com sucesso");
+        System.out.println();
     }
 
     public void emprestarLivro(Cliente cliente)
@@ -197,25 +200,15 @@ public class MainBiblioteca {
             return;
         }
 
-        System.out.print(cliente.getNome() + " digite o titulo ou id do livro que você deseja emprestar");
-        String idTitulo = scanner.nextLine();
-        Scanner verificacao = new Scanner(idTitulo);
+        System.out.print(cliente.getNome() + " digite o titulo do livro que você deseja emprestar: ");
+        String titulo = scanner.nextLine();
         Livro livro;
 
-        livro = biblioteca.pesquisarLivro(idTitulo);
-        if(livro == null)
-        {
-            try
-            {
-                livro = biblioteca.pesquisarLivro(verificacao.nextLong());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
+        livro = biblioteca.pesquisarLivro(titulo);
 
         if(livro == null)
         {
-            System.out.println("Livro com esse id ou titulo não foi cadastrado");
+            System.out.println("Livro com esse titulo não foi cadastrado");
             return;
         }
 
@@ -231,25 +224,15 @@ public class MainBiblioteca {
             return;
         }
 
-        System.out.print(cliente.getNome() + " digite o titulo ou id do livro que você deseja devolver: ");
-        String idTitulo = scanner.nextLine();
-        Scanner verificacao = new Scanner(idTitulo);
+        System.out.print(cliente.getNome() + " digite o titulo do livro que você deseja devolver: ");
+        String titulo = scanner.nextLine();
         Livro livro;
 
-        livro = biblioteca.pesquisarLivro(idTitulo);
-        if(livro == null)
-        {
-            try
-            {
-                livro = biblioteca.pesquisarLivro(verificacao.nextLong());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
+        livro = biblioteca.pesquisarLivro(titulo);
 
         if(livro == null)
         {
-            System.out.println("Livro com esse id ou titulo não foi cadastrado");
+            System.out.println("Livro com esse titulo não foi cadastrado");
             return;
         }
 

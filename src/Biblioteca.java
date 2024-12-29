@@ -129,7 +129,7 @@ public class Biblioteca {
         }
 
         for (Livro livro : livros) {
-            if ((livro.getTitulo().equals(titulo)) && (livro.getDisponivel())) {
+            if (livro.getTitulo().equalsIgnoreCase(titulo)){
                 return livro;
             }
         }

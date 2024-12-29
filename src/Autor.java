@@ -17,6 +17,7 @@ public class Autor {
         System.out.println("Id: " + id);
         System.out.println("Nome: " + nome);
         System.out.println("Data de nascimento: " + dataNascimento);
+        System.out.println();
     }
 
 }
