@@ -116,6 +116,11 @@ public class Cliente {
         return id;
     }
 
+    public String getNome()
+    {
+        return nome;
+    }
+
     public static void main(String[] args) {
         Autor notch = new Autor(312331L, "notch", LocalDate.of(1999, 2, 19));
         Livro mine = new Livro(3123123L, "mine", notch, LocalDate.of(2000, 3, 12));
