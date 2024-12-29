@@ -85,7 +85,24 @@ public class Biblioteca {
                 return cliente;
             }
         }
+        return null;
+    }
 
+    public Cliente pesquisarCliente(long id)
+    {
+        if(clientes.isEmpty())
+        {
+            System.out.println("Adicione clientes antes de realizar essa acao");
+            return null;
+        }
+
+        for(Cliente cliente : clientes)
+        {
+            if(cliente.getId() == id)
+            {
+                return cliente;
+            }
+        }
         return null;
     }
 
