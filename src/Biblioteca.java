@@ -70,6 +70,26 @@ public class Biblioteca {
         }
     }
 
+    public Cliente pesquisarCliente(String email, String senha)
+    {
+        if(clientes.isEmpty())
+        {
+            System.out.println("Adicione clientes antes de realizar essa ação");
+            return null;
+        }
+
+        for(Cliente cliente : clientes)
+        {
+            if(cliente.logar(email, senha))
+            {
+                return cliente;
+            }
+        }
+
+        return null;
+    }
+
+
     public static void main(String[] args) {
         Biblioteca biblioteca = new Biblioteca();
 
